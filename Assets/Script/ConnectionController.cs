@@ -5,15 +5,18 @@ using System;
 
 public class ConnectionController : MonoBehaviour, BiribitManagerListener
 {
-	[SerializeField] private string address = "thatguystudio.com";
-	[SerializeField] private string clientName = "David";
-	[SerializeField] private string appId = "roomcatenate-0";
-	[SerializeField] private bool debug = false;
+	private string address = "thatguystudio.com";
+	private string clientName = "David";
+	private string appId = "roomcatenate-0";
+	private bool debug = false;
 
 	private uint connectionId = Biribit.Client.UnassignedId;
 	private uint joinedRoomId = Biribit.Client.UnassignedId;
+	private int joinedSlotsMask = 0;
 	private int joinedRoomIndex = 0;
 	private uint joinedRoomSlot = Biribit.Client.UnassignedId;
+
+	private const byte SLOTS_COUNT = 3;
 
 	private BiribitManager manager;
 
@@ -34,7 +37,27 @@ public class ConnectionController : MonoBehaviour, BiribitManagerListener
 		"Maria"
 	};
 
-	public void Start()
+	public bool IsConnected()
+	{
+		return connectionId != Biribit.Client.UnassignedId;
+	}
+
+	public bool HasLocalPlayerJoined()
+	{
+		return joinedRoomId != Biribit.Client.UnassignedId;
+	}
+
+	public bool IsLocalPlayerHosting()
+	{
+		return HasLocalPlayerJoined() && (joinedRoomSlot == (byte) 1);
+	}
+
+	public bool IsGameReady()
+	{
+		return (joinedSlotsMask & 0x03) == 0x03;
+	}
+
+	public void Connect()
 	{
 		manager = BiribitManager.Instance;
 		manager.AddListener(this);
@@ -45,9 +68,57 @@ public class ConnectionController : MonoBehaviour, BiribitManagerListener
 		manager.Connect(address, 0, "");
 	}
 
+	private void FindRoomToJoin()
+	{
+		var connection = manager.GetConnection(connectionId);
+		uint roomid = 0;
+		byte slotid = 0;
+		foreach (Room room in connection.Rooms)
+		{
+			for (byte i = 0; i < 2; i++)
+			{
+				if (room.slots[i] == 0)
+				{
+					roomid = room.id;
+					slotid = i;
+					break;
+				}
+			}
+
+			if (roomid != 0)
+			{
+				break;
+			}
+		}
+
+		if (roomid == 0)
+		{
+			manager.CreateRoom(connectionId, SLOTS_COUNT);
+			Debug.Log("Creating new room");
+		}
+		else
+		{
+			manager.JoinRoom(connectionId, roomid, slotid);
+			Debug.Log("Joining existing one");
+		}
+	}
+
+	private void UpdateJoinedSlotsMask()
+	{
+		var connection = manager.GetConnection(connectionId);
+		for (int i = 0; i < connection.Rooms.Length; i++)
+			if(connection.Rooms[i].id == joinedRoomId)
+			{
+				joinedSlotsMask = 0;
+				for (int j = 0; j < connection.Rooms[i].slots.Length; j++ )
+					if (connection.Rooms[i].slots[j] != Biribit.Client.UnassignedId)
+						joinedSlotsMask |= (1 << j); 
+			}
+	}
+
 	public void OnServerListUpdated()
 	{
-		manager.JoinRandomOrCreateRoom(connectionId, (byte)3);
+		FindRoomToJoin();
 	}
 
 	public void OnConnected(uint _connectionId)
@@ -68,6 +139,8 @@ public class ConnectionController : MonoBehaviour, BiribitManagerListener
 			joinedRoomId = Biribit.Client.UnassignedId;
 			joinedRoomIndex = 0;
 			joinedRoomSlot = Biribit.Client.UnassignedId;
+
+			Debug.Log("Disconnected of connection " + _connectionId.ToString());
 		}
 	}
 
@@ -76,12 +149,9 @@ public class ConnectionController : MonoBehaviour, BiribitManagerListener
 		if (connectionId == _connectionId)
 		{
 			joinedRoomId = roomId;
-			//joinedRoomIndex = manager.Rooms
 			joinedRoomSlot = slotId;
-			//entries_read = 0;
-
-			//ReadForEntries();
-			Debug.Log("Joined " + (slotId + 1).ToString() + ": " + name + " joined!");
+			UpdateJoinedSlotsMask();
+			Debug.Log("Joined room " + roomId + " on slot " + (slotId + 1).ToString() + ". Mask: " + joinedSlotsMask);
 		}
 	}
 
@@ -89,12 +159,8 @@ public class ConnectionController : MonoBehaviour, BiribitManagerListener
 	{
 		if (connectionId == _connectionId)
 		{
-			//Biribit.Room[] roomArray = manager.RefreshRooms();
-			//Biribit.Room rm = roomArray[joinedRoomIndex];
-
-			//int pos = manager.RemoteClients(connectionId, rm.slots[(int)slotId]);
-			//string name = (pos < 0) ? rm.slots[(int)slotId].ToString() : manager.RemoteClients(connectionId)[pos].name;
-			Debug.Log("Player " + (slotId + 1).ToString() + " " + " joined!");
+			UpdateJoinedSlotsMask();
+			Debug.Log("Player " + clientId + " joined on slot " + (slotId + 1).ToString() + ". Mask: " + joinedSlotsMask);
 		}
 	}
 
