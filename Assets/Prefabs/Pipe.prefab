@@ -21,7 +21,6 @@ GameObject:
   - 4: {fileID: 4000010823938862}
   - 33: {fileID: 33000012620376728}
   - 23: {fileID: 23000012657750496}
-  - 65: {fileID: 65000013377871750}
   m_Layer: 0
   m_Name: PipeModel
   m_TagString: Untagged
@@ -37,6 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013851552014}
+  - 65: {fileID: 65000012671116772}
   m_Layer: 0
   m_Name: Pipe
   m_TagString: Untagged
@@ -51,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011599519260}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -107,15 +107,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011599519260}
   m_Mesh: {fileID: 4300000, guid: b59fef14418b87e48a432102bb1bf7ee, type: 3}
---- !u!65 &65000013377871750
+--- !u!65 &65000012671116772
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011599519260}
+  m_GameObject: {fileID: 1000013470474012}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 2.5, z: 4}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Size: {x: 2, y: 3, z: 2}
+  m_Center: {x: -0.5, y: 1, z: 0.5}
