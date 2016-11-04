@@ -8,6 +8,8 @@ public class ButtonItem : MonoBehaviour
 	public bool pressed;
 	public Animator anim;
 
+    int numPlayers = 0;
+
 	public float Fx(float comp, float foo)
 	{
 		if (foo < 0)
@@ -33,6 +35,21 @@ public class ButtonItem : MonoBehaviour
 		Color newColor = new Color(Fx(baseColor.r, foo), Fx(baseColor.g, foo), Fx(baseColor.b, foo));
 		toTint.material.color = newColor;
 
-		anim.SetBool("Pressed", pressed);
-	}
+        anim.SetBool("Pressed", pressed);
+    }
+
+
+    void OnTriggerEnter(Collider c)
+    {
+        if (c.tag != "Player") return;
+        ++numPlayers;
+        pressed = numPlayers != 0;
+    }
+
+    void OnTriggerExit(Collider c)
+    {
+        if (c.tag != "Player") return;
+        --numPlayers;
+        pressed = numPlayers != 0;
+    }
 }
