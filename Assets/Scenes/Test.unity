@@ -99,7 +99,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1074313867}
   - 114: {fileID: 1074313865}
-  - 114: {fileID: 1074313866}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -119,17 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 1468921401}
---- !u!114 &1074313866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1074313864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd128f8d612887c49900079157edad44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  AdvertisingWindowPrefab: {fileID: 1000010490596332, guid: 8c3311342bfc6fc42b7699857aa7995a,
+    type: 2}
 --- !u!4 &1074313867
 Transform:
   m_ObjectHideFlags: 0
