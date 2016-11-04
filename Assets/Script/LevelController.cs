@@ -4,12 +4,13 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
 	public GameObject RoomPrefab;
+	public GameObject PlayerPrefab;
 
 	const string level0_room0= @"
 W W W W W W W W W W W W W W W W W W W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ SR_ _ _ _ _ _ _ _ _ _ _ _ ER_ _ W 
+W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ D1 
+W _ SR_ _ _ _ _ _ _ _ _ _ _ _ ER_ _ _ 
 W _ _ _ _ _ _ _ D1_ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
@@ -21,12 +22,18 @@ W _ _ _ _ L _ _ _ _ P _ _ _ _ _ _ _ W
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ SB_ _ _ _ _ B _ _ _ _ _ _ EB_ _ W 
+W _ SB_ B0B1B2B3B4B5B6B7B8B9_ EB_ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W W W W W W W W W W W W W W W W W W W ";
 
 	private readonly string[] level0 = { level0_room0 };
+
+	struct LevelPosition
+	{
+		int roomId;
+		Vector2 position;
+	}
 
 	private RoomController[] rooms = null;
 	void InstantiateLevel(string[] level)
