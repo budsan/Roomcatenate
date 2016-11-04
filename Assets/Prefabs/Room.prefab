@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000013750570412}
+  m_IsPrefabParent: 1
+--- !u!1 &1000013750570412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012390079430}
+  - 114: {fileID: 114000011092426398}
+  m_Layer: 0
+  m_Name: Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012390079430
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013750570412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000011092426398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013750570412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509ebe604a5778041815c2febed6779c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FloorPrefab: {fileID: 1000011525084064, guid: 94f18fda98addbd49a74130d44a818f7,
+    type: 2}
+  WallPrefab: {fileID: 1000011111202590, guid: e2ca1ca20f4e6c74f92c67960d3a4a0e, type: 2}
+  StartRedPrefab: {fileID: 1000011679106826, guid: aa2f451f2ce41854c881defc6a1f3554,
+    type: 2}
+  StartBluePrefab: {fileID: 1000010514736384, guid: f34ad83c412422a43983752a4dfa5405,
+    type: 2}
+  EndRedPrefab: {fileID: 1000011844075802, guid: d710c693e57a2014eaccd9aff614379d,
+    type: 2}
+  EndBluePrefab: {fileID: 1000011006167392, guid: eafbef0398303e4418adcd27802d9f5a,
+    type: 2}
+  DoorPrefab: {fileID: 1000012513939162, guid: 3a6aa9b3802d6fc4b94daadf6e2e0506, type: 2}
+  LeverPrefab: {fileID: 1000012302992538, guid: 617f6466247be9340b3cbe18d6a45e24,
+    type: 2}
+  ButtonPrefab: {fileID: 1000011034931812, guid: eb61bdf11b7fed04bb830c630d47cfc9,
+    type: 2}
+  PipePrefab: {fileID: 1000013470474012, guid: 8a35552eaf0fd2045bf6ffdda786eade, type: 2}
