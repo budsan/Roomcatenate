@@ -43,6 +43,10 @@ public class ChallengeWindowController : MonoBehaviour {
 
 			result.text = string.Concat("Game is starting in ", countdown, " seconds...");
 		}
+		else
+		{
+			result.text = "";
+		}
 	}
 
 	void FixedUpdate()
