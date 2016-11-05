@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 	
 
     List<KeyItem> keys;
-
+    public Color[] colors;
     public Transform hamster;
     public Animator HamAnim;
 
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         cont = GetComponent<CharacterController>();
         keys = new List<KeyItem>();
-		renderer.material.color = id == 0 ? Color.red : Color.blue;
+        renderer.material.color = colors[id];
 	}
 	
 	// Update is called once per frame

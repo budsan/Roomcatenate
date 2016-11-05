@@ -37,28 +37,7 @@ public class LevelController : MonoBehaviour
 
 	//------------------------------------------------//
 
-	const string level0_room0= @"
-W W W W W W W W W W W W W W W W W W W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ D1 
-W _ SR_ _ _ _ _ _ _ _ _ _ _ _ ER_ _ _ 
-W _ _ _ _ _ _ _ D1_ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W W W W W W W W H0_ W W W W W W W W W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ L _ _ _ _ P _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ SB_ B0B1B2B3B4B5B6B7B8B9_ EB_ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W W W W W W W W W W W W W W W W W W W ";
-
-    const string level1_room0 = @"
+    const string level0_room0 = @"
 W W W W W W W W W W W W W W W W W W W 
 W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
@@ -79,7 +58,7 @@ W _ SB_ _ _ _ ER_ W _ SR_ _ _ _ EB_ W
 W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
 W W W W W W W W W W W W W W W W W W W ";
 
-    const string level2_room0 = @"
+    const string level1_room0 = @"
 W W W W W W W W W W W W W W W W W W W 
 W _ _ _ _ K W _ _ _ _ _ W K _ _ _ _ W 
 W _ _ _ _ _ W _ EB_ ER_ W _ _ _ _ _ W 
@@ -101,17 +80,61 @@ W _ _ _ _ _ W _ _ _ _ _ W _ _ _ _ _ W
 W W W W W W W W W W W W W W W W W W W ";
 
 
-    private static readonly string[] level0_strs = { level1_room0 };
-    private static readonly string[] level1_strs = { level2_room0 };
-    private static readonly string[] level2_strs = { level0_room0 };
+    const string level2_room0 = @"
+W W W W W W W W W W W W W W W W W W W 
+W K _ _ _ _ V4_ _ _ _ V8_ _ _ _ _ K W 
+W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W _ _ B5_ _ V4_ B8_ _ V8_ _ _ _ _ _ W 
+W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W _ _ _ _ _ V4_ _ _ _ V8_ _ _ _ _ _ W 
+W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W H8_ H8_ H8_ H5_ H5_ H4_ H4_ H4_ W W 
+W _ _ _ _ _ V4_ _ _ _ V5_ _ _ _ _ _ W 
+W _ _ B5_ _ _ _ _ B8_ _ _ _ _ _ _ _ W 
+W _ _ _ _ _ V4_ _ _ _ V5_ _ _ _ _ _ W 
+W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W W H4_ H4_ H8_ D8_ H8_ H5_ H5_ H5_ W 
+W _ _ _ _ _ V8_ _ _ _ V8_ _ _ _ _ _ W 
+W _ _ B5_ _ _ _ _ _ _ _ _ _ _ B4_ _ W 
+W W W W _ _ V8_ _ _ _ V8_ _ _ W W W W 
+W _ _ J1_ _ _ _ SBSR_ _ _ _ _ J1_ _ W 
+W ER_ _ _ _ W _ _ _ _ W _ _ _ _ _ EBW 
+W W W W W W W W W W W W W W W W W W W ";
+    /*
+        const string level0_room0 = @"
+    W W W W W W W W W W W W W W W W W W W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ D1 
+    W _ SR_ _ _ _ _ _ _ _ _ _ _ _ ER_ _ _ 
+    W _ _ _ _ _ _ _ D1_ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W W W W W W W W H0_ W W W W W W W W W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ L _ _ _ _ P _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ SB_ B0B1B2B3B4B5B6B7B8B9_ EB_ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+    W W W W W W W W W W W W W W W W W W W ";
+        */
+
+
+    private static readonly string[] level0_strs = { level0_room0 };
+    private static readonly string[] level1_strs = { level1_room0 };
+    private static readonly string[] level2_strs = { level2_room0 };
 
 
 
     public readonly LevelInfo[] Levels =
 	{
 		new LevelInfo(20, 8, level0_strs ),
-		new LevelInfo(120, 8, level1_strs ),
-        new LevelInfo(120, 8, level2_strs ),
+		new LevelInfo(50, 20, level1_strs ),
+        new LevelInfo(50, 17, level2_strs ),
     };
 
 	[HideInInspector] public LevelInfoPlayer[] infoPlayer;
