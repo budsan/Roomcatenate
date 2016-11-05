@@ -121,8 +121,8 @@ _ _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ _
 W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
 W W W W W W W W W W W W W W W W W W W ";
 
-    private static readonly string[] level0_strs = { level0_room0 };
-    private static readonly string[] level1_strs = { level1_room0 };
+    private static readonly string[] level0_strs = { level1_room0 };
+    private static readonly string[] level1_strs = { level0_room0 };
     private static readonly string[] level2_strs = { level2_room0, level2_room1 };
 
 
