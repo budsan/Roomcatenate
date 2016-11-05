@@ -56,7 +56,9 @@ public class GameController : MonoBehaviour
 		_levelController.LoadPlayerInfo();
 		_levelController.SetCamera(Camera);
 
-		_advertising.ShowLevels(this, _levelController.Levels, _levelController.infoPlayer);
+        _switchButton._levelController = _levelController;
+
+        _advertising.ShowLevels(this, _levelController.Levels, _levelController.infoPlayer);
 		DpadController.Instance.gameObject.SetActive(false);
 	}
 
@@ -82,8 +84,20 @@ public class GameController : MonoBehaviour
 	{
 		if (_levelController != null && _levelController.IsLevelLoaded)
 		{
-			int time = (int) _levelController.LevelTime;
-			_timeText.text = string.Format("{0}:{1:00}", time / 60, time % 60);
+            switch(_levelController.award)
+            {
+                case LevelController.AwardState.Time:
+                    int time = (int)_levelController.LevelTime;
+                    _timeText.text = string.Format("{0}:{1:00}", time / 60, time % 60);
+                    break;
+                case LevelController.AwardState.Changes:
+                    _timeText.text = _levelController.TimesChanged.ToString();
+                    break;
+                default:
+                    break;
+
+            }
+			
 
 			if (_levelController.IsLevelCompleted)
 			{

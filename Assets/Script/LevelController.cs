@@ -155,7 +155,7 @@ W W W W W W W W W W W W W W W W W W W ";
 
 	private float _startTime;
 	private float _endTime;
-    private int timesChanged;
+    private int _timesChanged;
     public float LevelTime
 	{
 		get
@@ -169,7 +169,15 @@ W W W W W W W W W W W W W W W W W W W ";
 		}
 	}
 
-	private bool LevelLoaded = false;
+    public float TimesChanged
+    {
+        get
+        {
+            return _timesChanged;
+        }
+    }
+
+    private bool LevelLoaded = false;
 	public bool IsLevelLoaded
 	{
 		get
@@ -325,7 +333,7 @@ W W W W W W W W W W W W W W W W W W W ";
 
         award = (AwardState)UnityEngine.Random.Range(0, 2);
 		_startTime = Time.time;
-        timesChanged = 0;
+        _timesChanged = 0;
 		LevelLoaded = true;
 	}
 
@@ -345,8 +353,7 @@ W W W W W W W W W W W W W W W W W W W ";
 
     public void AddTimesChange()
     {
-        ++timesChanged;
-        Debug.Log("C " + timesChanged);
+        ++_timesChanged;
     }
 
     public void EnableButtonGroup(int groupId)
