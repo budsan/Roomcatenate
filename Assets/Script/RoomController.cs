@@ -148,7 +148,7 @@ public class RoomController : MonoBehaviour
 					i++;
 					c2 = room[i];
 					{
-						GameObject doorGo = InstantiateOnWithRotation(x, y, 0, DoorButtonPrefab);
+						GameObject doorGo = InstantiateOnWithRotation(x, y, 1, DoorButtonPrefab);
 						ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
 						int group = Integer_Char2Int(c2, pos);
 						doorItem.SetColor(paletteId[group]);
