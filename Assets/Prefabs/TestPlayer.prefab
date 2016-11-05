@@ -198,6 +198,11 @@ MonoBehaviour:
   speed: 10
   id: 0
   renderer: {fileID: 23000013043497910}
+  camera: {fileID: 0}
+  level: {fileID: 0}
+  colors:
+  - {r: 1, g: 0.347, b: 0.347, a: 1}
+  - {r: 0.347, g: 0.400546, b: 1, a: 1}
   hamster: {fileID: 4000014182279168}
   HamAnim: {fileID: 95000010166767004}
   modelAnim: {fileID: 4000014182279168}
