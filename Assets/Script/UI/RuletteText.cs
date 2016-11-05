@@ -55,7 +55,7 @@ public class RuletteText : MonoBehaviour
 		{
 			case LevelController.AwardState.Time:
 			{
-				string time = string.Format("{0}:{1:00}", currentLevel.parTime / 60, currentLevel.parTime % 60);
+				string time = string.Format("{0}:{1:00}", (((int)currentLevel.parTime) / 60), (((int)currentLevel.parTime) % 60));
 				return "Beat par time:\n" + time;
 			}
 			case LevelController.AwardState.Changes:

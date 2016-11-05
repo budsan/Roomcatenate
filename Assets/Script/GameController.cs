@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
 	public GameObject SwitchButtonPrefab;
 	public GameObject TimeTextPrefab;
 	public GameObject ChallengeWindowPrefab;
+	public GameObject MenuButtonPrefab;
+	public GameObject PauseMenuPrefab;
 
 	public CameraController Camera;
 
@@ -20,6 +22,8 @@ public class GameController : MonoBehaviour
 	private SwitchButton _switchButton = null;
 	private Text _timeText;
 	private ChallengeWindowController _challengeWindow = null;
+	private MenuButton _menuButton = null;
+	private PauseMenu _pauseMenu = null;
 
 	private int _levelLoaded = -1;
 	private bool _showingChallenge = false;
@@ -45,6 +49,17 @@ public class GameController : MonoBehaviour
 		_finish.controller = this;
 		_finish.Hide = true;
 
+		_menuButton = Instantiate(MenuButtonPrefab).GetComponent<MenuButton>();
+		_menuButton.transform.SetParent(mainCanvas.transform, false);
+		_menuButton.Hide = true;
+		_menuButton.Menu.onClick.AddListener(OnMenuButton);
+
+		_pauseMenu = Instantiate(PauseMenuPrefab).GetComponent<PauseMenu>();
+		_pauseMenu.transform.SetParent(mainCanvas.transform, false);
+		_pauseMenu.Hide = true;
+		_pauseMenu.Restart.onClick.AddListener(OnRestart);
+		_pauseMenu.Back.onClick.AddListener(OnBack);
+
 		_switchButton = Instantiate(SwitchButtonPrefab).GetComponent<SwitchButton>();
         _switchButton._levelController = _levelController;
         _switchButton.transform.SetParent(mainCanvas.transform, false);
@@ -53,6 +68,33 @@ public class GameController : MonoBehaviour
 		_timeText = Instantiate(TimeTextPrefab).GetComponent<Text>();
 		_timeText.transform.SetParent(mainCanvas.transform, false);
 		_timeText.gameObject.SetActive(false);
+
+		MainMenu();
+	}
+
+	public void OnMenuButton()
+	{
+		_pauseMenu.Hide = !_pauseMenu.Hide;
+	}
+
+	public void OnRestart()
+	{
+		_pauseMenu.Hide = true;
+		LoadLevelFinally();
+	}
+
+	public void OnBack()
+	{
+		Destroy(_levelController.gameObject);
+		_levelController = null;
+
+		DpadController.Instance.gameObject.SetActive(false);
+		_switchButton.gameObject.SetActive(false);
+		_timeText.gameObject.SetActive(false);
+
+		_finish.Hide = false;
+		_menuButton.Hide = true;
+		_pauseMenu.Hide = true;
 
 		MainMenu();
 	}
@@ -79,7 +121,7 @@ public class GameController : MonoBehaviour
 		_advertising.Hide = true;
 
 		_challengeWindow.gameObject.SetActive(true);
-		_challengeWindow.rulleteText.status = 50;
+		_challengeWindow.rulleteText.status = 25;
 		_challengeWindow.rulleteText.result = (LevelController.AwardState) UnityEngine.Random.Range(0, 2);
 		_challengeWindow.rulleteText.currentLevel = _levelController.Levels[_levelLoaded];
 
@@ -92,6 +134,7 @@ public class GameController : MonoBehaviour
 		DpadController.Instance.gameObject.SetActive(true);
 		_switchButton.gameObject.SetActive(true);
 		_timeText.gameObject.SetActive(true);
+		_menuButton.Hide = false;
 		Camera.up = 40;
 	}
 
@@ -139,10 +182,10 @@ public class GameController : MonoBehaviour
 						case LevelController.AwardState.Time:
 							_finish.TargetLabel.text = "Expected time:";
 							int parTime = (int)_levelController.Levels[_levelLoaded].parTime;
-							_finish.TargetValue.text = string.Format("{0}:{1:00}", parTime / 60, parTime % 60);
+							_finish.TargetValue.text = string.Format("{0}:{1:00}", (parTime / 60), (parTime % 60));
 							_finish.YourTargetLabel.text = "Your time:";
 							int time = (int)_levelController.LevelTime;
-							string text = string.Format("{0}:{1:00}", time / 60, time % 60);
+							string text = string.Format("{0}:{1:00}", (time / 60), (time % 60));
 							_finish.YourValue.text = text;
 							if (time <= parTime)
 							{
@@ -189,6 +232,8 @@ public class GameController : MonoBehaviour
 					_timeText.gameObject.SetActive(false);
 
 					_finish.Hide = false;
+					_menuButton.Hide = true;
+					_pauseMenu.Hide = true;
 				}
 			}
 			else
