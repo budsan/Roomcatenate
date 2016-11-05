@@ -7,10 +7,12 @@ public class GameController : MonoBehaviour
 	public GameObject AdvertisingWindowPrefab;
 	public GameObject FinishWindowPrefab;
 	public GameObject LevelControllerPrefab;
+	public GameObject SwitchButtonPrefab;
 
 	private AdvertisingWindowController _advertising = null;
 	private FinishWindowController _finish = null;
 	private LevelController _levelController = null;
+	private SwitchButton _switchButton = null;
 
 	void Start ()
 	{
@@ -31,6 +33,10 @@ public class GameController : MonoBehaviour
 		_levelController.transform.SetParent(transform, false);
 		_levelController.LoadPlayerInfo();
 
+		_switchButton = Instantiate(SwitchButtonPrefab).GetComponent<SwitchButton>();
+		_switchButton.transform.SetParent(mainCanvas.transform, false);
+		_switchButton.gameObject.SetActive(false);
+
 		_advertising.ShowLevels(this, _levelController.Levels, _levelController.infoPlayer);
 		DpadController.Instance.gameObject.SetActive(false);
 	}
@@ -40,6 +46,7 @@ public class GameController : MonoBehaviour
 		_levelController.LoadLevel(levelId);
 		_advertising.Hide = true;
 		DpadController.Instance.gameObject.SetActive(true);
+		_switchButton.gameObject.SetActive(true);
 	}
 
 	void Update ()

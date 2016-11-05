@@ -22,6 +22,8 @@ public class DpadController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 	}
 
+	public int SelectedPlayer = 0;
+
 	static public DpadController _instance;
 	static public DpadController Instance
 	{

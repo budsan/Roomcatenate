@@ -129,6 +129,8 @@ MonoBehaviour:
     type: 2}
   LevelControllerPrefab: {fileID: 1000011333200338, guid: cd6d0b3411907884a92d10268019ba04,
     type: 2}
+  SwitchButtonPrefab: {fileID: 1000014159060034, guid: 2ca1b8b30af8faf48acb72ed153e88af,
+    type: 2}
 --- !u!4 &1074313867
 Transform:
   m_ObjectHideFlags: 0
@@ -589,12 +591,12 @@ Prefab:
     - target: {fileID: 224000010911690620, guid: 117a7b3a73c3125489757dc15dfd9a28,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 224000010911690620, guid: 117a7b3a73c3125489757dc15dfd9a28,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 224000010911690620, guid: 117a7b3a73c3125489757dc15dfd9a28,
         type: 2}
