@@ -283,6 +283,7 @@ W W W W W W W W W W W W W W W W W W W ";
 		p1.transform.localPosition = new Vector3(p1Spawn.position.x, 0.6f, -p1Spawn.position.y);
 		p1.transform.SetParent(transform, true);
 		PlayerController p1Contr = p1.GetComponent<PlayerController>();
+		p1Contr.camera = _camera;
 		p1Contr.id = 0;
 
 		GameObject p2 = Instantiate(PlayerPrefab);
@@ -290,6 +291,7 @@ W W W W W W W W W W W W W W W W W W W ";
 		p2.transform.localPosition = new Vector3(p2Spawn.position.x, 0.6f, -p2Spawn.position.y);
 		p2.transform.SetParent(transform, true);
 		PlayerController p2Contr = p2.GetComponent<PlayerController>();
+		p2Contr.camera = _camera;
 		p2Contr.id = 1;
 
 		_camera.Target = rooms[p1Spawn.roomId].transform.FindChild("Floor/Quad").transform;

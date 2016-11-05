@@ -16,6 +16,9 @@ public class CameraController : MonoBehaviour
 	public float angleUp = 45;
 	public float dist = 25;
 
+	public Vector3 forward;
+	public Vector3 right;
+
 	void Start ()
 	{
 		
@@ -28,8 +31,16 @@ public class CameraController : MonoBehaviour
 			transform.position = target.position;
 			transform.localRotation = Quaternion.identity;
 			transform.Rotate(Vector3.up, angle, Space.Self);
+
+			forward = transform.forward;
+			right = transform.right;
+
 			transform.Rotate(Vector3.right, angleUp, Space.Self);
 			transform.Translate(Vector3.back * dist, Space.Self);
+
+			angle += GestureZone.Instance.angleIncr;
 		}
+
+		GestureZone.Instance.angleIncr = 0;
 	}
 }

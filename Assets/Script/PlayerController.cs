@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour {
 
     public int id = 0;
 	public Renderer renderer;
+	[HideInInspector] public CameraController camera;
 
-    CharacterController cont;
+	CharacterController cont;
+	
 
     List<KeyItem> keys;
 
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 			float ver = Input.GetAxis("Vertical") + axis.y;
 			float hor = Input.GetAxis("Horizontal") + axis.x;
 
-			Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
+			Vector3 dir = camera.forward * ver + camera.right * hor;
 			hamster.LookAt(hamster.position + dir);
 			cont.Move(dir * speed * Time.deltaTime);
 		}

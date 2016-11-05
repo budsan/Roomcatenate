@@ -170,6 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a38606419a876d4fa3b519cbd4c6a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  momentum: 0
+  angleIncr: 0
+  last: 0
 --- !u!224 &499082583 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224000010911690620, guid: 117a7b3a73c3125489757dc15dfd9a28,
@@ -211,6 +214,7 @@ MonoBehaviour:
     type: 2}
   SwitchButtonPrefab: {fileID: 1000014159060034, guid: 2ca1b8b30af8faf48acb72ed153e88af,
     type: 2}
+  Camera: {fileID: 1530122509}
 --- !u!4 &1074313867
 Transform:
   m_ObjectHideFlags: 0
@@ -470,8 +474,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -509,6 +513,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586e7a07e8e38e142b90a3a5f6c1f6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  angle: 0
+  angleUp: 45
+  dist: 25
 --- !u!1 &1591375864
 GameObject:
   m_ObjectHideFlags: 0
