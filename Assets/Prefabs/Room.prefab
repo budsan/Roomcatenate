@@ -70,6 +70,7 @@ MonoBehaviour:
   ButtonPrefab: {fileID: 1000011034931812, guid: eb61bdf11b7fed04bb830c630d47cfc9,
     type: 2}
   PipePrefab: {fileID: 1000013470474012, guid: 8a35552eaf0fd2045bf6ffdda786eade, type: 2}
+  KeyPrefab: {fileID: 1000010632951750, guid: f66b7532d241c0542922c3287317d64f, type: 2}
   paletteId:
   - {r: 0.6329676, g: 0.24705881, b: 1, a: 1}
   - {r: 1, g: 0.8133377, b: 0.24705881, a: 1}

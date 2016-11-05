@@ -16,8 +16,9 @@ public class RoomController : MonoBehaviour
 	public GameObject LeverPrefab;
 	public GameObject ButtonPrefab;
 	public GameObject PipePrefab;
+    public GameObject KeyPrefab;
 
-	public Color[] paletteId;
+    public Color[] paletteId;
 
 	public const int ROOM_SIZE = 19;
 
@@ -168,9 +169,23 @@ public class RoomController : MonoBehaviour
 					}
 					pos++;
 					break;
-				default: // ignore
-					break;
-			}
+                case 'J': // DOORKEY
+                    i++;
+                    c2 = room[i];
+                    {
+                        int rot = Rotation_Char2Int(c2, pos);
+                        GameObject g = InstantiateOnWithRotation(x, y, rot, DoorPrefab);
+                        g.GetComponent<BasicDoorItem>().SetKey();
+                    }
+                    pos++;
+                    break;
+                case 'K': // KEY                    
+                    InstantiateOn(x, y, KeyPrefab);
+                    pos++;
+                    break;
+                default: // ignore
+                    break;
+            }
 		}
 
 		return floorObj;

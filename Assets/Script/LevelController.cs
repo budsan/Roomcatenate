@@ -81,49 +81,29 @@ W W W W W W W W W W W W W W W W W W W ";
 
     const string level2_room0 = @"
 W W W W W W W W W W W W W W W W W W W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ D1 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-W _ SB_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W W W W W W W W H0_ W W W W W W W W W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ SR_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W _ _ _ _ K W _ _ _ _ _ W K _ _ _ _ W 
+W _ _ _ _ _ W _ EB_ ER_ W _ _ _ _ _ W 
+W W H4_ W W W _ _ _ _ _ W _ _ _ _ _ W 
+W _ _ _ _ _ W _ _ _ _ _ W _ _ _ _ _ W 
+W _ _ _ B1_ W W W J0_ W W _ _ _ _ _ W 
+W _ B2_ _ _ J1_ _ _ _ _ W W W H3_ W W 
+W _ _ _ _ _ _ _ _ _ _ _ W _ _ _ _ _ W 
+W W H3_ W W W _ _ _ _ _ W _ _ _ _ _ W 
+W _ _ _ _ _ W _ _ B3_ _ W _ _ B4_ _ W 
+W _ _ B2_ _ W _ _ _ _ _ W _ _ _ _ _ W 
+W _ _ _ _ _ W _ _ _ _ _ W _ _ _ _ _ W 
+W _ _ _ _ _ W W W H2_ W W _ _ _ _ _ W 
+W W H0_ W W W _ _ _ _ _ W W W H2_ W W 
+W _ _ _ _ _ W _ _ _ _ _ W _ _ _ _ _ W 
+W _ _ _ _ _ V1_ _ _ _ _ V1_ _ _ _ _ W 
+W _ B1_ SR_ _ _ _ B0_ _ _ _ SB_ B1_ W 
+W _ _ _ _ _ W _ _ _ _ _ W _ _ _ _ _ W 
 W W W W W W W W W W W W W W W W W W W ";
 
-    const string level2_room1 = @"
-W W W W W W W W W W W W W W W W W W W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ ER_ _ _ _ _ _ _ _ _ EB_ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W W W W H1_ W W W W W W W D0_ W W W W 
-W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
-W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
-W _ _ _ _ B0_ _ _ W _ _ _ _ B1_ _ _ W 
-W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
-D1_ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ D1 
-_ _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ _ 
-W _ _ _ _ _ _ _ _ W _ _ _ _ _ _ _ _ W 
-W W W W W W W W W W W W W W W W W W W ";
 
     private static readonly string[] level0_strs = { level1_room0 };
-    private static readonly string[] level1_strs = { level0_room0 };
-    private static readonly string[] level2_strs = { level2_room0, level2_room1 };
+    private static readonly string[] level1_strs = { level2_room0 };
+    private static readonly string[] level2_strs = { level0_room0 };
 
 
 
