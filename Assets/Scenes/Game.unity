@@ -214,7 +214,8 @@ MonoBehaviour:
     type: 2}
   SwitchButtonPrefab: {fileID: 1000014159060034, guid: 2ca1b8b30af8faf48acb72ed153e88af,
     type: 2}
-  TimeTextPrefab: {fileID: 0}
+  TimeTextPrefab: {fileID: 1000011757467184, guid: ac65620ff797c7347a5b1af99c777c68,
+    type: 2}
   Camera: {fileID: 1530122509}
 --- !u!4 &1074313867
 Transform:
