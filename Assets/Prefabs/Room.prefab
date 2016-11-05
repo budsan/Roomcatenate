@@ -63,6 +63,8 @@ MonoBehaviour:
   EndBluePrefab: {fileID: 1000011006167392, guid: eafbef0398303e4418adcd27802d9f5a,
     type: 2}
   DoorPrefab: {fileID: 1000012513939162, guid: 3a6aa9b3802d6fc4b94daadf6e2e0506, type: 2}
+  DoorButtonPrefab: {fileID: 1000012867770900, guid: 0add249c638e9e34db5af46427ae14d1,
+    type: 2}
   LeverPrefab: {fileID: 1000012302992538, guid: 617f6466247be9340b3cbe18d6a45e24,
     type: 2}
   ButtonPrefab: {fileID: 1000011034931812, guid: eb61bdf11b7fed04bb830c630d47cfc9,

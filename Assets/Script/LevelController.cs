@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelInfo
@@ -47,7 +48,7 @@ W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
-W W W W W W W W D0_ W W W W W W W W W 
+W W W W W W W W H0_ W W W W W W W W W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W _ _ _ _ L _ _ _ _ P _ _ _ _ _ _ _ W 
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
@@ -63,9 +64,12 @@ W W W W W W W W W W W W W W W W W W W ";
 	public readonly LevelInfo[] Levels =
 	{
 		new LevelInfo(120, 8, level0_strs ),
+		new LevelInfo(120, 8, level0_strs ),
 	};
 
 	public LevelInfoPlayer[] infoPlayer;
+
+	private List<ButtonDoorItem> buttonDoors = new List<ButtonDoorItem>();
 
 	//------------------------------------------------//
 

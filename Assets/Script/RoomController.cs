@@ -122,9 +122,9 @@ public class RoomController : MonoBehaviour
 					i++;
 					c2 = room[i];
 					{
-						GameObject doorGo = InstantiateOnWithRotation(pos, 0, ButtonPrefab);
-						//ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
-						//doorItem.SetColor(paletteId[Integer_Char2Int(c2, pos));
+						GameObject doorGo = InstantiateOnWithRotation(pos, 0, DoorButtonPrefab);
+						ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
+						doorItem.SetColor(paletteId[Integer_Char2Int(c2, pos)]);
 					}
 					pos++;
 					break;
@@ -132,9 +132,9 @@ public class RoomController : MonoBehaviour
 					i++;
 					c2 = room[i];
 					{
-						GameObject doorGo = InstantiateOnWithRotation(pos, 0, ButtonPrefab);
-						//ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
-						//doorItem.SetColor(paletteId[Integer_Char2Int(c2, pos));
+						GameObject doorGo = InstantiateOnWithRotation(pos, 0, DoorButtonPrefab);
+						ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
+						doorItem.SetColor(paletteId[Integer_Char2Int(c2, pos)]);
 					}
 					pos++;
 					break;
