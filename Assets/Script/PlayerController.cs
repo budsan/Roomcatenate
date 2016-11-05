@@ -37,9 +37,9 @@ public class PlayerController : MonoBehaviour {
 
 			Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
 			hamster.LookAt(hamster.position + dir);
-			HamAnim.SetFloat("Speed", dir.magnitude);
 			cont.Move(dir * speed * Time.deltaTime);
 		}
+        else HamAnim.SetFloat("Speed", 0);
     }
 
     public Transform AddKey(KeyItem key)
