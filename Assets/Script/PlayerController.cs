@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
 
     List<KeyItem> keys;
 
+    public Transform hamster;
+    public Animator HamAnim;
+
 	// Use this for initialization
 	void Start () {
         cont = GetComponent<CharacterController>();
@@ -27,6 +30,8 @@ public class PlayerController : MonoBehaviour {
         float hor = Input.GetAxis("Horizontal");
 
         Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
+        hamster.LookAt(hamster.position + dir);
+        HamAnim.SetFloat("Speed", dir.magnitude);
         cont.Move(dir * speed * Time.deltaTime);
     }
 
