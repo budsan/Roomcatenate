@@ -25,30 +25,38 @@ public class GestureZone : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	}
 
 	public float momentum;
+	public float angleIncrAccum;
 	public float angleIncr;
 	public float last;
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		momentum = 0;
+		angleIncrAccum = 0;
 		last = eventData.position.x;
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		angleIncr += (last - eventData.position.x) * 0.15f;
+		float incr = (last - eventData.position.x) * 0.15f;
+		angleIncr += incr;
+		angleIncrAccum *= 0.5f;
+		angleIncrAccum += incr;
 		last = eventData.position.x;
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		momentum = (last - eventData.position.x) * 0.1f;
-		angleIncr += momentum;
+		float incr = (last - eventData.position.x) * 0.15f;
+		angleIncr += incr;
+		angleIncrAccum *= 0.5f;
+		angleIncrAccum += incr;
+		momentum = incr + angleIncrAccum;
 	}
 
 	public void FixedUpdate()
 	{
-		momentum = momentum * 0.95f;
+		momentum *= 0.9f;
 		if (momentum > 0.001)
 		{
 			angleIncr += momentum;

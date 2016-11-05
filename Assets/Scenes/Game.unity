@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   momentum: 0
+  angleIncrAccum: 0
   angleIncr: 0
   last: 0
 --- !u!224 &499082583 stripped
@@ -519,6 +520,7 @@ MonoBehaviour:
   angle: 0
   angleUp: 45
   dist: 25
+  up: 1
   forward: {x: 0, y: 0, z: 0}
   right: {x: 0, y: 0, z: 0}
 --- !u!1 &1591375864

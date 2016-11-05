@@ -101,6 +101,50 @@ public class GameController : MonoBehaviour
 
 			if (_levelController.IsLevelCompleted)
 			{
+				switch (_levelController.award)
+				{
+					case LevelController.AwardState.Time:
+						_finish.TargetLabel.text = "Expected time:";
+						int parTime = (int) _levelController.Levels[_levelLoaded].parTime;
+						_finish.TargetValue.text = string.Format("{0}:{1:00}", parTime / 60, parTime % 60);
+						_finish.YourTargetLabel.text = "Your time:";
+						int time = (int)_levelController.LevelTime;
+						string text = string.Format("{0}:{1:00}", time / 60, time % 60);
+						_finish.YourValue.text = text;
+						if (time <= parTime)
+						{
+							_finish.ResultText.text = "Congratulations, you did it!";
+							_finish.ResultText.color = Color.green * 0.5f;
+						}
+						else
+						{
+							_finish.ResultText.text = "Sorry, good luck next time.";
+							_finish.ResultText.color = Color.red * 0.5f;
+						}
+						break;
+					case LevelController.AwardState.Changes:
+						_finish.TargetLabel.text = "Changes allowed:";
+						int par = _levelController.Levels[_levelLoaded].parCrosses;
+						_finish.TargetValue.text = par.ToString();
+						_finish.YourTargetLabel.text = "Your changes:";
+						int yourChanges = _levelController.TimesChanged;
+						_finish.YourValue.text = yourChanges.ToString();
+						if (yourChanges <= par)
+						{
+							_finish.ResultText.text = "Congratulations, you did it!";
+							_finish.ResultText.color = Color.green * 0.5f;
+						}
+						else
+						{
+							_finish.ResultText.text = "Sorry, good luck next time.";
+							_finish.ResultText.color = Color.red * 0.5f;
+						}
+						break;
+					default:
+						break;
+
+				}
+
 				_levelController.infoPlayer[_levelLoaded].clear = true;
 				_levelController.SavePlayerInfo();
 

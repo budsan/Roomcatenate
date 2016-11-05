@@ -10,6 +10,7 @@ public class FinishWindowController : MonoBehaviour
 	public Text TargetValue;
 	public Text YourTargetLabel;
 	public Text YourValue;
+	public Text ResultText;
 	public Button MainMenuButton;
 
 	[HideInInspector]

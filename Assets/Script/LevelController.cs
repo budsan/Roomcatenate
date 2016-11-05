@@ -129,7 +129,7 @@ W W W W W W W W W W W W W W W W W W W ";
 
     public readonly LevelInfo[] Levels =
 	{
-		new LevelInfo(120, 8, level0_strs ),
+		new LevelInfo(20, 8, level0_strs ),
 		new LevelInfo(120, 8, level1_strs ),
         new LevelInfo(120, 8, level2_strs ),
     };
@@ -169,7 +169,7 @@ W W W W W W W W W W W W W W W W W W W ";
 		}
 	}
 
-    public float TimesChanged
+    public int TimesChanged
     {
         get
         {

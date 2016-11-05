@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
 	public float angle = 0;
 	public float angleUp = 45;
 	public float dist = 25;
+	public float up = 1;
 
 	public Vector3 forward;
 	public Vector3 right;
@@ -28,7 +29,7 @@ public class CameraController : MonoBehaviour
 	{
 		if (target != null)
 		{
-			transform.position = target.position;
+			transform.position = target.position + Vector3.up * up;
 			transform.localRotation = Quaternion.identity;
 			transform.Rotate(Vector3.up, angle, Space.Self);
 
