@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
     public float speed = 10f;
@@ -8,9 +9,12 @@ public class PlayerController : MonoBehaviour {
 
     CharacterController cont;
 
+    List<KeyItem> keys;
+
 	// Use this for initialization
 	void Start () {
         cont = GetComponent<CharacterController>();
+        keys = new List<KeyItem>();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +28,22 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
         cont.Move(dir * speed * Time.deltaTime);
+    }
+
+    public Transform AddKey(KeyItem key)
+    {
+        keys.Add(key);
+        if (keys.Count == 1) return transform;
+        return keys[keys.Count - 2].transform;
+    }
+
+    public bool RemoveKey()
+    {
+        if (keys.Count <= 0) return false;
+        Destroy(keys[0].gameObject);
+        keys.RemoveAt(0);
+        if (keys.Count > 0) keys[0].setNewFollow(transform);
+        return true;
     }
 
 

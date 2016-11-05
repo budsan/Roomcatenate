@@ -21,7 +21,13 @@ public class KeyItem : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if (myPlayer != null || c.GetComponent<PlayerController>() == null) return;
-        myPlayer = c.transform;
+        PlayerController p = c.GetComponent<PlayerController>();
+        if (myPlayer != null || p == null) return;
+        myPlayer = p.AddKey(this);
+    }
+
+    public void setNewFollow(Transform newFollow)
+    {
+        myPlayer = newFollow;
     }
 }
