@@ -8,7 +8,10 @@ public class ButtonItem : MonoBehaviour
 	public bool pressed;
 	public Animator anim;
 
-    int numPlayers = 0;
+	[HideInInspector] public int group;
+	[HideInInspector] public LevelController controller;
+
+	int numPlayers = 0;
 
 	public float Fx(float comp, float foo)
 	{
@@ -42,6 +45,10 @@ public class ButtonItem : MonoBehaviour
     void OnTriggerEnter(Collider c)
     {
         if (c.GetComponent<PlayerController>() == null) return;
+		
+		if (numPlayers == 0)
+			controller.EnableButtonGroup(group);
+
         ++numPlayers;
         pressed = numPlayers != 0;
     }
@@ -51,5 +58,8 @@ public class ButtonItem : MonoBehaviour
         if (c.GetComponent<PlayerController>() == null) return;
         --numPlayers;
         pressed = numPlayers != 0;
-    }
+
+		if (numPlayers == 0)
+			controller.DisableButtonGroup(group);
+	}
 }

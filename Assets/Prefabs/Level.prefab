@@ -54,3 +54,5 @@ MonoBehaviour:
   RoomPrefab: {fileID: 1000013750570412, guid: 32d926c7520fabd4ea0d17cafc7722ab, type: 2}
   PlayerPrefab: {fileID: 1000013085083042, guid: 56c77319166bbbe46adce3defc6969a1,
     type: 2}
+  infoPlayer: []
+  TestLevel: -1

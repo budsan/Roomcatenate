@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   id: 0
+  renderer: {fileID: 23000013690013118}
   modelAnim: {fileID: 4000012923582094}
 --- !u!143 &143000013602687704
 CharacterController:

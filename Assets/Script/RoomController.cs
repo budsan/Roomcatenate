@@ -24,11 +24,8 @@ public class RoomController : MonoBehaviour
 	private LevelController parent;
 	private int roomId;
 
-	GameObject InstantiateOn(int pos, GameObject toInstantiate)
+	GameObject InstantiateOn(int x, int y, GameObject toInstantiate)
 	{
-		int x = pos % ROOM_SIZE;
-		int y = pos / ROOM_SIZE;
-
 		GameObject obj = Instantiate(toInstantiate);
 		obj.transform.SetParent(transform, false);
 		obj.transform.localPosition = new Vector3(x, 0, -y);
@@ -36,9 +33,9 @@ public class RoomController : MonoBehaviour
 		return obj;
 	}
 
-	GameObject InstantiateOnWithRotation(int pos, int rot, GameObject toInstantiate)
+	GameObject InstantiateOnWithRotation(int x, int y, int rot, GameObject toInstantiate)
 	{
-		GameObject obj = InstantiateOn(pos, toInstantiate);
+		GameObject obj = InstantiateOn(x, y, toInstantiate);
 		obj.transform.Rotate(Vector3.up, rot * 90, Space.Self);
 		return obj;
 	}
@@ -54,12 +51,15 @@ public class RoomController : MonoBehaviour
 		int pos = 0;
 		for (int i = 0; i < room.Length; i++)
 		{
+			int x = (pos % ROOM_SIZE);
+			int y = (pos / ROOM_SIZE);
+
 			char c = room[i];
 			char c2;
 			switch (c)
 			{
 				case 'W': // WALL
-					InstantiateOn(pos, WallPrefab);
+					InstantiateOn(x, y, WallPrefab);
 					pos++;
 					break;
 				case '_': // EMPTY
@@ -71,10 +71,12 @@ public class RoomController : MonoBehaviour
 					switch(c2)
 					{
 						case 'R':
-							InstantiateOn(pos, StartRedPrefab);
+							InstantiateOn(x, y, StartRedPrefab);
+							parent.SetPlayer1Spawn(roomId, x, y);
 							break;
 						case 'B':
-							InstantiateOn(pos, StartBluePrefab);
+							InstantiateOn(x, y, StartBluePrefab);
+							parent.SetPlayer2Spawn(roomId, x, y);
 							break;
 						default:
 							Debug.LogError("Expecting R/B: " + Pos2Str(pos));
@@ -85,35 +87,45 @@ public class RoomController : MonoBehaviour
 				case 'E': // END
 					i++;
 					c2 = room[i];
-					switch (c2)
 					{
-						case 'R':
-							InstantiateOn(pos, EndRedPrefab);
-							break;
-						case 'B':
-							InstantiateOn(pos, EndBluePrefab);
-							break;
-						default:
-							Debug.LogError("Expecting R/B: " + Pos2Str(pos));
-							break;
+						GameObject endObj = null;
+						switch (c2)
+						{
+							case 'R':
+								endObj = InstantiateOn(x, y, EndRedPrefab);
+								break;
+							case 'B':
+								endObj = InstantiateOn(x, y, EndBluePrefab);
+								break;
+							default:
+								Debug.LogError("Expecting R/B: " + Pos2Str(pos));
+								break;
+						}
+
+						EndItem end = endObj.GetComponent<EndItem>();
+						end.controller = parent;
 					}
+					
 					pos++;
 					break;
 				case 'L': // LEVER
-					InstantiateOn(pos, LeverPrefab);
+					InstantiateOn(x, y, LeverPrefab);
 					pos++;
 					break;
 				case 'P': // PIPE
-					InstantiateOn(pos, PipePrefab);
+					InstantiateOn(x, y, PipePrefab);
 					pos++;
 					break;
 				case 'B': // BUTTON
 					i++;
 					c2 = room[i];
 					{
-						GameObject butGo = InstantiateOn(pos, ButtonPrefab);
+						GameObject butGo = InstantiateOn(x, y, ButtonPrefab);
 						ButtonItem butItem = butGo.GetComponent<ButtonItem>();
-						butItem.baseColor = paletteId[Integer_Char2Int(c2, pos)];
+						int group = Integer_Char2Int(c2, pos);
+						butItem.baseColor = paletteId[group];
+						butItem.group = group;
+						butItem.controller = parent;
 					}
 					
 					pos++;
@@ -122,9 +134,13 @@ public class RoomController : MonoBehaviour
 					i++;
 					c2 = room[i];
 					{
-						GameObject doorGo = InstantiateOnWithRotation(pos, 0, DoorButtonPrefab);
+						GameObject doorGo = InstantiateOnWithRotation(x, y, 0, DoorButtonPrefab);
 						ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
-						doorItem.SetColor(paletteId[Integer_Char2Int(c2, pos)]);
+						int group = Integer_Char2Int(c2, pos);
+						doorItem.SetColor(paletteId[group]);
+						doorItem.group = group;
+
+						parent.AddButtonDoor(doorItem);
 					}
 					pos++;
 					break;
@@ -132,9 +148,13 @@ public class RoomController : MonoBehaviour
 					i++;
 					c2 = room[i];
 					{
-						GameObject doorGo = InstantiateOnWithRotation(pos, 0, DoorButtonPrefab);
+						GameObject doorGo = InstantiateOnWithRotation(x, y, 0, DoorButtonPrefab);
 						ButtonDoorItem doorItem = doorGo.GetComponent<ButtonDoorItem>();
-						doorItem.SetColor(paletteId[Integer_Char2Int(c2, pos)]);
+						int group = Integer_Char2Int(c2, pos);
+						doorItem.SetColor(paletteId[group]);
+						doorItem.group = group;
+
+						parent.AddButtonDoor(doorItem);
 					}
 					pos++;
 					break;
@@ -143,7 +163,7 @@ public class RoomController : MonoBehaviour
 					c2 = room[i];
 					{
 						int rot = Rotation_Char2Int(c2, pos);
-						InstantiateOnWithRotation(pos, rot, DoorPrefab);
+						InstantiateOnWithRotation(x, y, rot, DoorPrefab);
 					}
 					pos++;
 					break;

@@ -8,6 +8,7 @@ public class ButtonDoorItem : MonoBehaviour {
     public Collider col;
     public Renderer[] rends;
     int numPlayers = 0;
+	[HideInInspector] public int group;
 
 
     public void SetDoorOpened(bool isOpen)
