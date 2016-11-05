@@ -100,6 +100,27 @@ W W W W _ _ V8_ _ _ _ V8_ _ _ W W W W
 W _ _ J1_ _ _ _ SBSR_ _ _ _ _ J1_ _ W 
 W ER_ _ _ _ W _ _ _ _ W _ _ _ _ _ EBW 
 W W W W W W W W W W W W W W W W W W W ";
+
+    const string level3_room0 = @"
+W W W W W W W W W W W W W W W W W W W 
+W B8_ _ _ _ _ _ _ _ _ _ _ _ _ V5_ B1W 
+W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W H3_ W W W W W W W W W W W W W _ _ W 
+W _ _ W K _ _ _ _ _ _ _ _ _ B5W _ _ W 
+W _ _ W _ _ _ _ _ _ _ _ _ _ _ W _ _ W 
+W _ _ W _ _ _ _ _ _ _ _ _ _ _ W _ _ W 
+W _ _ W _ _ _ _ _ _ _ _ _ _ _ W _ _ W 
+W _ _ W W W H1_ W W W W W H3_ W _ _ W 
+W _ _ J1J1J1_ _ V1B3SBV3J1_ K W EB_ W 
+W _ _ _ _ _ _ _ _ ERB1_ _ _ _ W _ SRW 
+W _ _ W W W H1_ W W W W W H3_ W _ _ W 
+W _ _ W _ _ _ _ _ _ _ _ _ _ _ W _ _ W 
+W _ _ W _ _ _ _ _ _ _ _ _ _ _ W K _ W 
+W _ _ W K _ _ _ _ _ _ _ _ _ B8W _ _ W 
+W _ _ W W W W W W W W W W W W W H8_ W 
+W _ _ V1_ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
+W B5_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ B3W 
+W W W W W W W W W W W W W W W W W W W ";
     /*
         const string level0_room0 = @"
     W W W W W W W W W W W W W W W W W W W 
@@ -127,7 +148,7 @@ W W W W W W W W W W W W W W W W W W W ";
     private static readonly string[] level0_strs = { level0_room0 };
     private static readonly string[] level1_strs = { level1_room0 };
     private static readonly string[] level2_strs = { level2_room0 };
-
+    private static readonly string[] level3_strs = { level3_room0 };
 
 
     public readonly LevelInfo[] Levels =
@@ -135,6 +156,7 @@ W W W W W W W W W W W W W W W W W W W ";
 		new LevelInfo(20, 8, level0_strs ),
 		new LevelInfo(50, 20, level1_strs ),
         new LevelInfo(50, 17, level2_strs ),
+        new LevelInfo(40, 13, level3_strs ),
     };
 
 	[HideInInspector] public LevelInfoPlayer[] infoPlayer;
