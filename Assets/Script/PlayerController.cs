@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public int id = 0;
 	public Renderer renderer;
 	[HideInInspector] public CameraController camera;
+	[HideInInspector] public LevelController level;
 
 	CharacterController cont;
 	
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 
         if (animating) return;
 
-		if (DpadController.Instance.SelectedPlayer == id)
+		if (!level.IsLevelCompleted && DpadController.Instance.SelectedPlayer == id)
 		{
 			Vector2 axis = DpadController.Instance.Axis;
 			float ver = Input.GetAxis("Vertical") + axis.y;
@@ -40,8 +41,12 @@ public class PlayerController : MonoBehaviour {
 			Vector3 dir = camera.forward * ver + camera.right * hor;
 			hamster.LookAt(hamster.position + dir);
 			cont.Move(dir * speed * Time.deltaTime);
+			HamAnim.SetFloat("Speed", dir.magnitude);
 		}
-        else HamAnim.SetFloat("Speed", 0);
+		else
+		{
+			HamAnim.SetFloat("Speed", 0);
+		}
     }
 
     public Transform AddKey(KeyItem key)

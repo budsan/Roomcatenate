@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameController : MonoBehaviour
 	public GameObject FinishWindowPrefab;
 	public GameObject LevelControllerPrefab;
 	public GameObject SwitchButtonPrefab;
+	public GameObject TimeTextPrefab;
 
 	public CameraController Camera;
 
@@ -15,6 +17,7 @@ public class GameController : MonoBehaviour
 	private FinishWindowController _finish = null;
 	private LevelController _levelController = null;
 	private SwitchButton _switchButton = null;
+	private Text _timeText;
 
 	void Start ()
 	{
@@ -40,6 +43,10 @@ public class GameController : MonoBehaviour
 		_switchButton.transform.SetParent(mainCanvas.transform, false);
 		_switchButton.gameObject.SetActive(false);
 
+		_timeText = Instantiate(TimeTextPrefab).GetComponent<Text>();
+		_timeText.transform.SetParent(mainCanvas.transform, false);
+		_timeText.gameObject.SetActive(false);
+
 		_advertising.ShowLevels(this, _levelController.Levels, _levelController.infoPlayer);
 		DpadController.Instance.gameObject.SetActive(false);
 	}
@@ -50,13 +57,15 @@ public class GameController : MonoBehaviour
 		_advertising.Hide = true;
 		DpadController.Instance.gameObject.SetActive(true);
 		_switchButton.gameObject.SetActive(true);
+		_timeText.gameObject.SetActive(true);
 	}
 
 	void Update ()
 	{
 		if (_levelController != null && _levelController.IsLevelLoaded)
 		{
-			
+			int time = (int) _levelController.LevelTime;
+			_timeText.text = string.Format("{0}:{1:00}", time / 60, time % 60);
 
 			if (_levelController.IsLevelCompleted)
 			{

@@ -153,7 +153,21 @@ W W W W W W W W W W W W W W W W W W W ";
 
 	private int[] groupsEnabled;
 
-	private float StartTime;
+	private float _startTime;
+	private float _endTime;
+	public float LevelTime
+	{
+		get
+		{
+			if (completed)
+			{
+				return _endTime - _startTime;
+			}
+
+			return Time.time - _startTime;
+		}
+	}
+
 	private bool LevelLoaded = false;
 	public bool IsLevelLoaded
 	{
@@ -170,7 +184,6 @@ W W W W W W W W W W W W W W W W W W W ";
 			return completed;
 		}
 	}
-
 
 	//------------------------------------------------//
 
@@ -232,7 +245,7 @@ W W W W W W W W W W W W W W W W W W W ";
 			completed = completed || (p1OnEnd && p2OnEnd);
 			if (!lastCompleted && completed)
 			{
-				Debug.Log("Level Completed");
+				_endTime = Time.time;
 			}
 		}
 	}
@@ -284,6 +297,7 @@ W W W W W W W W W W W W W W W W W W W ";
 		p1.transform.SetParent(transform, true);
 		PlayerController p1Contr = p1.GetComponent<PlayerController>();
 		p1Contr.camera = _camera;
+		p1Contr.level = this;
 		p1Contr.id = 0;
 
 		GameObject p2 = Instantiate(PlayerPrefab);
@@ -292,12 +306,13 @@ W W W W W W W W W W W W W W W W W W W ";
 		p2.transform.SetParent(transform, true);
 		PlayerController p2Contr = p2.GetComponent<PlayerController>();
 		p2Contr.camera = _camera;
+		p2Contr.level = this;
 		p2Contr.id = 1;
 
 		_camera.Target = rooms[p1Spawn.roomId].transform.FindChild("Floor/Quad").transform;
 		_camera.angle = 45;
 
-		StartTime = Time.time;
+		_startTime = Time.time;
 		LevelLoaded = true;
 	}
 
