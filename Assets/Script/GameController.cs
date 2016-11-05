@@ -70,6 +70,7 @@ public class GameController : MonoBehaviour
 		DpadController.Instance.gameObject.SetActive(true);
 		_switchButton.gameObject.SetActive(true);
 		_timeText.gameObject.SetActive(true);
+		Camera.up = 40;
 	}
 
 	public void MainMenu()
@@ -98,64 +99,71 @@ public class GameController : MonoBehaviour
 
             }
 			
-
 			if (_levelController.IsLevelCompleted)
 			{
-				switch (_levelController.award)
+				Camera.up = Camera.up * 0.9f + -40.0f * 0.1f;
+				if (Camera.up < -38.0f)
 				{
-					case LevelController.AwardState.Time:
-						_finish.TargetLabel.text = "Expected time:";
-						int parTime = (int) _levelController.Levels[_levelLoaded].parTime;
-						_finish.TargetValue.text = string.Format("{0}:{1:00}", parTime / 60, parTime % 60);
-						_finish.YourTargetLabel.text = "Your time:";
-						int time = (int)_levelController.LevelTime;
-						string text = string.Format("{0}:{1:00}", time / 60, time % 60);
-						_finish.YourValue.text = text;
-						if (time <= parTime)
-						{
-							_finish.ResultText.text = "Congratulations, you did it!";
-							_finish.ResultText.color = Color.green * 0.5f;
-						}
-						else
-						{
-							_finish.ResultText.text = "Sorry, good luck next time.";
-							_finish.ResultText.color = Color.red * 0.5f;
-						}
-						break;
-					case LevelController.AwardState.Changes:
-						_finish.TargetLabel.text = "Changes allowed:";
-						int par = _levelController.Levels[_levelLoaded].parCrosses;
-						_finish.TargetValue.text = par.ToString();
-						_finish.YourTargetLabel.text = "Your changes:";
-						int yourChanges = _levelController.TimesChanged;
-						_finish.YourValue.text = yourChanges.ToString();
-						if (yourChanges <= par)
-						{
-							_finish.ResultText.text = "Congratulations, you did it!";
-							_finish.ResultText.color = Color.green * 0.5f;
-						}
-						else
-						{
-							_finish.ResultText.text = "Sorry, good luck next time.";
-							_finish.ResultText.color = Color.red * 0.5f;
-						}
-						break;
-					default:
-						break;
+					switch (_levelController.award)
+					{
+						case LevelController.AwardState.Time:
+							_finish.TargetLabel.text = "Expected time:";
+							int parTime = (int)_levelController.Levels[_levelLoaded].parTime;
+							_finish.TargetValue.text = string.Format("{0}:{1:00}", parTime / 60, parTime % 60);
+							_finish.YourTargetLabel.text = "Your time:";
+							int time = (int)_levelController.LevelTime;
+							string text = string.Format("{0}:{1:00}", time / 60, time % 60);
+							_finish.YourValue.text = text;
+							if (time <= parTime)
+							{
+								_finish.ResultText.text = "Congratulations, you did it!";
+								_finish.ResultText.color = Color.green * 0.5f;
+							}
+							else
+							{
+								_finish.ResultText.text = "Sorry, good luck next time.";
+								_finish.ResultText.color = Color.red * 0.5f;
+							}
+							break;
+						case LevelController.AwardState.Changes:
+							_finish.TargetLabel.text = "Changes allowed:";
+							int par = _levelController.Levels[_levelLoaded].parCrosses;
+							_finish.TargetValue.text = par.ToString();
+							_finish.YourTargetLabel.text = "Your changes:";
+							int yourChanges = _levelController.TimesChanged;
+							_finish.YourValue.text = yourChanges.ToString();
+							if (yourChanges <= par)
+							{
+								_finish.ResultText.text = "Congratulations, you did it!";
+								_finish.ResultText.color = Color.green * 0.5f;
+							}
+							else
+							{
+								_finish.ResultText.text = "Sorry, good luck next time.";
+								_finish.ResultText.color = Color.red * 0.5f;
+							}
+							break;
+						default:
+							break;
 
+					}
+
+					_levelController.infoPlayer[_levelLoaded].clear = true;
+					_levelController.SavePlayerInfo();
+
+					Destroy(_levelController.gameObject);
+					_levelController = null;
+
+					DpadController.Instance.gameObject.SetActive(false);
+					_switchButton.gameObject.SetActive(false);
+					_timeText.gameObject.SetActive(false);
+
+					_finish.Hide = false;
 				}
-
-				_levelController.infoPlayer[_levelLoaded].clear = true;
-				_levelController.SavePlayerInfo();
-
-				Destroy(_levelController.gameObject);
-				_levelController = null;
-
-				DpadController.Instance.gameObject.SetActive(false);
-				_switchButton.gameObject.SetActive(false);
-				_timeText.gameObject.SetActive(false);
-
-				_finish.Hide = false;
+			}
+			else
+			{
+				Camera.up = Camera.up * 0.9f + 0.1f;
 			}
 		}
 	}
