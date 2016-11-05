@@ -73,7 +73,6 @@ public class DpadController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		Inner.anchoredPosition = relative.normalized * mag * 40.0f;
 
 		mag = mag * mag;
-		mag = mag * mag;
 		axis = relative.normalized * mag;
 		
 	}

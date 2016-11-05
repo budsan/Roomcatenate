@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
 	public GameObject LevelControllerPrefab;
 	public GameObject SwitchButtonPrefab;
 
+	public CameraController Camera;
+
 	private AdvertisingWindowController _advertising = null;
 	private FinishWindowController _finish = null;
 	private LevelController _levelController = null;
@@ -32,6 +34,7 @@ public class GameController : MonoBehaviour
 		_levelController = Instantiate(LevelControllerPrefab).GetComponent<LevelController>();
 		_levelController.transform.SetParent(transform, false);
 		_levelController.LoadPlayerInfo();
+		_levelController.SetCamera(Camera);
 
 		_switchButton = Instantiate(SwitchButtonPrefab).GetComponent<SwitchButton>();
 		_switchButton.transform.SetParent(mainCanvas.transform, false);

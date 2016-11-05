@@ -40,13 +40,14 @@ public class RoomController : MonoBehaviour
 		return obj;
 	}
 
-	public void CreateRoom(LevelController _parent, int _roomId, string room)
+	public GameObject CreateRoom(LevelController _parent, int _roomId, string room)
 	{
 		parent = _parent;
 		roomId = _roomId;
 
-		GameObject obj = Instantiate(FloorPrefab);
-		obj.transform.SetParent(transform, false);
+		GameObject floorObj = Instantiate(FloorPrefab);
+		floorObj.transform.SetParent(transform, false);
+		floorObj.name = "Floor";
 
 		int pos = 0;
 		for (int i = 0; i < room.Length; i++)
@@ -171,6 +172,8 @@ public class RoomController : MonoBehaviour
 					break;
 			}
 		}
+
+		return floorObj;
 	}
 
 	int Integer_Char2Int(char value, int pos)

@@ -237,6 +237,12 @@ W W W W W W W W W W W W W W W W W W W ";
 		}
 	}
 
+	CameraController _camera;
+	public void SetCamera(CameraController camera)
+	{
+		_camera = camera;
+	}
+
 	private LevelPosition playerRed;
 	private RoomController[] rooms = null;
 	void InstantiateLevel(string[] level)
@@ -285,6 +291,9 @@ W W W W W W W W W W W W W W W W W W W ";
 		p2.transform.SetParent(transform, true);
 		PlayerController p2Contr = p2.GetComponent<PlayerController>();
 		p2Contr.id = 1;
+
+		_camera.Target = rooms[p1Spawn.roomId].transform.FindChild("Floor/Quad").transform;
+		_camera.angle = 45;
 
 		StartTime = Time.time;
 		LevelLoaded = true;
