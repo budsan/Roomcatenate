@@ -79,6 +79,13 @@ public class GameController : MonoBehaviour
 
 	public void OnRestart()
 	{
+		var award = _levelController.award;
+		Destroy(_levelController.gameObject);
+		_levelController = null;
+
+		CreateLevelController();
+		_levelController.award = award;
+
 		_pauseMenu.Hide = true;
 		LoadLevelFinally();
 	}
