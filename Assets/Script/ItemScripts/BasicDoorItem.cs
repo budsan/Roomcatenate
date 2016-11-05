@@ -11,7 +11,7 @@ public class BasicDoorItem : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag != "Player") return;
+        if (c.GetComponent<PlayerController>() == null) return;
         ++numPlayers;
         bool newOpen = numPlayers != 0;
         if (newOpen != opened) anim.SetInteger("DoorState", Random.Range(1, 3));
@@ -20,7 +20,7 @@ public class BasicDoorItem : MonoBehaviour {
 
     void OnTriggerExit(Collider c)
     {
-        if (c.tag != "Player") return;
+        if (c.GetComponent<PlayerController>() == null) return;
         --numPlayers;
         bool newOpen = numPlayers != 0;
         if (newOpen != opened) anim.SetInteger("DoorState", 0);

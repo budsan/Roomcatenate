@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011679729352}
   - 65: {fileID: 65000011370095310}
+  - 114: {fileID: 114000012424551130}
   m_Layer: 0
   m_Name: LeftCollider
   m_TagString: Untagged
@@ -52,6 +53,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013821755258}
   - 65: {fileID: 65000014244743154}
+  - 114: {fileID: 114000010200882494}
   m_Layer: 0
   m_Name: RightCollider
   m_TagString: Untagged
@@ -342,3 +344,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010200882494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013845627634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc8b1fb8165d474580e43ca723fb67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRight: 1
+  anim: {fileID: 95000010881609866}
+--- !u!114 &114000012424551130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010753083850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc8b1fb8165d474580e43ca723fb67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRight: 0
+  anim: {fileID: 95000010881609866}

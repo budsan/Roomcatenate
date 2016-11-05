@@ -41,14 +41,14 @@ public class ButtonItem : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag != "Player") return;
+        if (c.GetComponent<PlayerController>() == null) return;
         ++numPlayers;
         pressed = numPlayers != 0;
     }
 
     void OnTriggerExit(Collider c)
     {
-        if (c.tag != "Player") return;
+        if (c.GetComponent<PlayerController>() == null) return;
         --numPlayers;
         pressed = numPlayers != 0;
     }

@@ -21,7 +21,7 @@ public class KeyItem : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if (myPlayer != null || c.tag != "Player") return;
+        if (myPlayer != null || c.GetComponent<PlayerController>() == null) return;
         myPlayer = c.transform;
     }
 }
