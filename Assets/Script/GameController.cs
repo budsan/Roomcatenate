@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 	public GameObject LevelControllerPrefab;
 	public GameObject SwitchButtonPrefab;
 	public GameObject TimeTextPrefab;
+	public GameObject ChallengeWindowPrefab;
 
 	public CameraController Camera;
 
@@ -18,8 +19,10 @@ public class GameController : MonoBehaviour
 	private LevelController _levelController = null;
 	private SwitchButton _switchButton = null;
 	private Text _timeText;
+	private ChallengeWindowController _challengeWindow = null;
 
 	private int _levelLoaded = -1;
+	private bool _showingChallenge = false;
 
 	void Start ()
 	{
@@ -31,6 +34,11 @@ public class GameController : MonoBehaviour
 		_advertising = Instantiate(AdvertisingWindowPrefab).GetComponent<AdvertisingWindowController>();
 		_advertising.transform.SetParent(mainCanvas.transform, false);
 		_advertising.Hide = false;
+
+		_challengeWindow = Instantiate(ChallengeWindowPrefab).GetComponent<ChallengeWindowController>();
+		_challengeWindow.transform.SetParent(mainCanvas.transform, false);
+		_challengeWindow.gameObject.SetActive(false);
+		_challengeWindow.Hide = true;
 
 		_finish = Instantiate(FinishWindowPrefab).GetComponent<FinishWindowController>();
 		_finish.transform.SetParent(mainCanvas.transform, false);
@@ -64,9 +72,23 @@ public class GameController : MonoBehaviour
 
 	public void LoadLevel(int levelId)
 	{
-		_levelController.LoadLevel(levelId);
 		_levelLoaded = levelId;
+		_showingChallenge = true;
+
+		_challengeWindow.Hide = false;
 		_advertising.Hide = true;
+
+		_challengeWindow.gameObject.SetActive(true);
+		_challengeWindow.rulleteText.status = 50;
+		_challengeWindow.rulleteText.result = (LevelController.AwardState) UnityEngine.Random.Range(0, 2);
+		_challengeWindow.rulleteText.currentLevel = _levelController.Levels[_levelLoaded];
+
+		_levelController.award = _challengeWindow.rulleteText.result;
+	}
+
+	public void LoadLevelFinally()
+	{
+		_levelController.LoadLevel(_levelLoaded);
 		DpadController.Instance.gameObject.SetActive(true);
 		_switchButton.gameObject.SetActive(true);
 		_timeText.gameObject.SetActive(true);
@@ -83,13 +105,21 @@ public class GameController : MonoBehaviour
 
 	void Update ()
 	{
-		if (_levelController != null && _levelController.IsLevelLoaded)
+		if (_showingChallenge)
+		{
+			if (_challengeWindow.Hide)
+			{
+				LoadLevelFinally();
+				_showingChallenge = false;
+			}
+		}
+		else if (_levelController != null && _levelController.IsLevelLoaded)
 		{
             switch(_levelController.award)
             {
                 case LevelController.AwardState.Time:
                     int time = (int)_levelController.LevelTime;
-                    _timeText.text = string.Format("{0}:{1:00}", time / 60, time % 60);
+                    _timeText.text = string.Format("{0}:{1:00}", (time / 60), (time % 60));
                     break;
                 case LevelController.AwardState.Changes:
                     _timeText.text = _levelController.TimesChanged.ToString();

@@ -179,7 +179,8 @@ W W W W W W W W W W W W W W W W W W W ";
     public enum AwardState
     {
         Time = 0,
-        Changes = 1
+        Changes = 1,
+		Count = 2
     }
 
     public AwardState award;
@@ -311,7 +312,6 @@ W W W W W W W W W W W W W W W W W W W ";
 		_camera.Target = rooms[p1Spawn.roomId].transform.FindChild("Floor/Quad").transform;
 		_camera.angle = 45;
 
-        award = (AwardState)UnityEngine.Random.Range(0, 2);
 		_startTime = Time.time;
         _timesChanged = 0;
 		LevelLoaded = true;
