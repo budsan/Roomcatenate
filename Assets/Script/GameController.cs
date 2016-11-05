@@ -32,18 +32,22 @@ public class GameController : MonoBehaviour
 		_levelController.LoadPlayerInfo();
 
 		_advertising.ShowLevels(this, _levelController.Levels, _levelController.infoPlayer);
+		DpadController.Instance.gameObject.SetActive(false);
 	}
 
 	public void LoadLevel(int levelId)
 	{
 		_levelController.LoadLevel(levelId);
 		_advertising.Hide = true;
+		DpadController.Instance.gameObject.SetActive(true);
 	}
 
 	void Update ()
 	{
 		if (_levelController != null && _levelController.IsLevelLoaded)
 		{
+			
+
 			if (_levelController.IsLevelCompleted)
 			{
 

@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour {
         ModelAnimations();
 
         if (animating) return;
-        float ver = Input.GetAxis("Vertical");
-        float hor = Input.GetAxis("Horizontal");
+		Vector2 axis = DpadController.Instance.Axis;
+        float ver = Input.GetAxis("Vertical") + axis.y;
+        float hor = Input.GetAxis("Horizontal") + axis.x;
 
         Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
         cont.Move(dir * speed * Time.deltaTime);
