@@ -155,7 +155,8 @@ W W W W W W W W W W W W W W W W W W W ";
 
 	private float _startTime;
 	private float _endTime;
-	public float LevelTime
+    private int timesChanged;
+    public float LevelTime
 	{
 		get
 		{
@@ -185,9 +186,19 @@ W W W W W W W W W W W W W W W W W W W ";
 		}
 	}
 
-	//------------------------------------------------//
+    //------------------------------------------------//
 
-	public void LoadPlayerInfo()
+    public enum AwardState
+    {
+        Time = 0,
+        Changes = 1
+    }
+
+    public AwardState award;
+
+    public Transform modelAnim;
+
+    public void LoadPlayerInfo()
 	{
 		infoPlayer = new LevelInfoPlayer[Levels.Length];
 		for (int i = 0; i < infoPlayer.Length; i++)
@@ -312,7 +323,9 @@ W W W W W W W W W W W W W W W W W W W ";
 		_camera.Target = rooms[p1Spawn.roomId].transform.FindChild("Floor/Quad").transform;
 		_camera.angle = 45;
 
+        award = (AwardState)UnityEngine.Random.Range(0, 2);
 		_startTime = Time.time;
+        timesChanged = 0;
 		LevelLoaded = true;
 	}
 
@@ -330,7 +343,13 @@ W W W W W W W W W W W W W W W W W W W ";
 		p2Spawn.position.y = y;
 	}
 
-	public void EnableButtonGroup(int groupId)
+    public void AddTimesChange()
+    {
+        ++timesChanged;
+        Debug.Log("C " + timesChanged);
+    }
+
+    public void EnableButtonGroup(int groupId)
 	{
 		if (groupsEnabled[groupId] == 0)
 		{

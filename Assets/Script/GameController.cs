@@ -38,7 +38,8 @@ public class GameController : MonoBehaviour
 		_finish.Hide = true;
 
 		_switchButton = Instantiate(SwitchButtonPrefab).GetComponent<SwitchButton>();
-		_switchButton.transform.SetParent(mainCanvas.transform, false);
+        _switchButton._levelController = _levelController;
+        _switchButton.transform.SetParent(mainCanvas.transform, false);
 		_switchButton.gameObject.SetActive(false);
 
 		_timeText = Instantiate(TimeTextPrefab).GetComponent<Text>();

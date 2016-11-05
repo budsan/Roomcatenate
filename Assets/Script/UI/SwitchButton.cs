@@ -8,8 +8,10 @@ public class SwitchButton : MonoBehaviour
 	private Button button;
 	private int lastPlayerId = -1;
 	private ColorBlock originals;
-
-	void Start ()
+    [HideInInspector]
+    public LevelController _levelController;
+    
+    void Start ()
 	{
 		button = GetComponent<Button>();
 		button.onClick.AddListener(() => { Toggle(); });
@@ -19,7 +21,9 @@ public class SwitchButton : MonoBehaviour
 	void Toggle()
 	{
 		DpadController.Instance.SelectedPlayer = DpadController.Instance.SelectedPlayer == 0 ? 1 : 0;
-	}
+        _levelController.AddTimesChange();
+
+    }
 
 	Color MultColor(Color a, Color b)
 	{
