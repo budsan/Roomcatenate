@@ -28,14 +28,18 @@ public class PlayerController : MonoBehaviour {
         ModelAnimations();
 
         if (animating) return;
-		Vector2 axis = DpadController.Instance.Axis;
-        float ver = Input.GetAxis("Vertical") + axis.y;
-        float hor = Input.GetAxis("Horizontal") + axis.x;
 
-        Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
-        hamster.LookAt(hamster.position + dir);
-        HamAnim.SetFloat("Speed", dir.magnitude);
-        cont.Move(dir * speed * Time.deltaTime);
+		if (DpadController.Instance.SelectedPlayer == id)
+		{
+			Vector2 axis = DpadController.Instance.Axis;
+			float ver = Input.GetAxis("Vertical") + axis.y;
+			float hor = Input.GetAxis("Horizontal") + axis.x;
+
+			Vector3 dir = Vector3.forward * ver + Vector3.right * hor;
+			hamster.LookAt(hamster.position + dir);
+			HamAnim.SetFloat("Speed", dir.magnitude);
+			cont.Move(dir * speed * Time.deltaTime);
+		}
     }
 
     public Transform AddKey(KeyItem key)
