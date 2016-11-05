@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 10f;
 
     public int id = 0;
+	public Renderer renderer;
 
     CharacterController cont;
 
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         cont = GetComponent<CharacterController>();
         keys = new List<KeyItem>();
+		renderer.material.color = id == 0 ? Color.red : Color.blue;
 	}
 	
 	// Update is called once per frame

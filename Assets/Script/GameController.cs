@@ -5,10 +5,12 @@ public class GameController : MonoBehaviour
 {
 	public Canvas mainCanvas;
 	public GameObject AdvertisingWindowPrefab;
+	public GameObject FinishWindowPrefab;
 	public GameObject LevelControllerPrefab;
 
-	private AdvertisingWindowController _advertising;
-	private LevelController _levelController;
+	private AdvertisingWindowController _advertising = null;
+	private FinishWindowController _finish = null;
+	private LevelController _levelController = null;
 
 	void Start ()
 	{
@@ -20,6 +22,10 @@ public class GameController : MonoBehaviour
 		_advertising = Instantiate(AdvertisingWindowPrefab).GetComponent<AdvertisingWindowController>();
 		_advertising.transform.SetParent(mainCanvas.transform, false);
 		_advertising.Hide = false;
+
+		_finish = Instantiate(FinishWindowPrefab).GetComponent<FinishWindowController>();
+		_finish.transform.SetParent(mainCanvas.transform, false);
+		_finish.Hide = true;
 
 		_levelController = Instantiate(LevelControllerPrefab).GetComponent<LevelController>();
 		_levelController.transform.SetParent(transform, false);
@@ -36,6 +42,12 @@ public class GameController : MonoBehaviour
 
 	void Update ()
 	{
-		
+		if (_levelController != null && _levelController.IsLevelLoaded)
+		{
+			if (_levelController.IsLevelCompleted)
+			{
+
+			}
+		}
 	}
 }

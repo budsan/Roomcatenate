@@ -26,13 +26,12 @@ public class LevelInfoPlayer
 
 struct LevelPosition
 {
-	int roomId;
-	Vector2 position;
+	public int roomId;
+	public Vector2 position;
 }
 
 public class LevelController : MonoBehaviour
 {
-
 	public GameObject RoomPrefab;
 	public GameObject PlayerPrefab;
 
@@ -67,9 +66,43 @@ W W W W W W W W W W W W W W W W W W W ";
 		new LevelInfo(120, 8, level0_strs ),
 	};
 
-	public LevelInfoPlayer[] infoPlayer;
+	[HideInInspector] public LevelInfoPlayer[] infoPlayer;
+
+	public int TestLevel = -1;
+
+	private LevelPosition p1Spawn;
+	private LevelPosition p2Spawn;
+
+	private bool p1OnEnd;
+	private bool p2OnEnd;
+	private bool completed;
 
 	private List<ButtonDoorItem> buttonDoors = new List<ButtonDoorItem>();
+	public void AddButtonDoor(ButtonDoorItem door)
+	{
+		buttonDoors.Add(door);
+	}
+
+	private int[] groupsEnabled;
+
+	private float StartTime;
+	private bool LevelLoaded = false;
+	public bool IsLevelLoaded
+	{
+		get
+		{
+			return LevelLoaded;
+		}
+	}
+
+	public bool IsLevelCompleted
+	{
+		get
+		{
+			return completed;
+		}
+	}
+
 
 	//------------------------------------------------//
 
@@ -115,6 +148,27 @@ W W W W W W W W W W W W W W W W W W W ";
 
 	//------------------------------------------------//
 
+	void Start()
+	{
+		if (TestLevel >= 0)
+		{
+			LoadLevel(TestLevel);
+		}
+	}
+
+	void Update()
+	{
+		if (LevelLoaded)
+		{
+			bool lastCompleted = completed;
+			completed = completed || (p1OnEnd && p2OnEnd);
+			if (!lastCompleted && completed)
+			{
+				Debug.Log("Level Completed");
+			}
+		}
+	}
+
 	private LevelPosition playerRed;
 	private RoomController[] rooms = null;
 	void InstantiateLevel(string[] level)
@@ -142,6 +196,90 @@ W W W W W W W W W W W W W W W W W W W ";
 
 	public void LoadLevel(int levelId)
 	{
+		groupsEnabled = new int[10];
+		for (int i = 0; i < groupsEnabled.Length; i++)
+			groupsEnabled[i] = 0;
+
+		buttonDoors.Clear();
+
 		InstantiateLevel(Levels[levelId].level);
+
+		GameObject p1 = Instantiate(PlayerPrefab);
+		p1.transform.SetParent(rooms[p1Spawn.roomId].transform, false);
+		p1.transform.localPosition = new Vector3(p1Spawn.position.x, 0.6f, -p1Spawn.position.y);
+		p1.transform.SetParent(transform, true);
+		PlayerController p1Contr = p1.GetComponent<PlayerController>();
+		p1Contr.id = 0;
+
+		GameObject p2 = Instantiate(PlayerPrefab);
+		p2.transform.SetParent(rooms[p2Spawn.roomId].transform, false);
+		p2.transform.localPosition = new Vector3(p2Spawn.position.x, 0.6f, -p2Spawn.position.y);
+		p2.transform.SetParent(transform, true);
+		PlayerController p2Contr = p2.GetComponent<PlayerController>();
+		p2Contr.id = 1;
+
+		StartTime = Time.time;
+		LevelLoaded = true;
+	}
+
+	public void SetPlayer1Spawn(int roomId, int x, int y)
+	{
+		p1Spawn.roomId = roomId;
+		p1Spawn.position.x = x;
+		p1Spawn.position.y = y;
+	}
+
+	public void SetPlayer2Spawn(int roomId, int x, int y)
+	{
+		p2Spawn.roomId = roomId;
+		p2Spawn.position.x = x;
+		p2Spawn.position.y = y;
+	}
+
+	public void EnableButtonGroup(int groupId)
+	{
+		if (groupsEnabled[groupId] == 0)
+		{
+			foreach (ButtonDoorItem door in buttonDoors)
+			{
+				if (door.group == groupId)
+				{
+					door.SetDoorOpened(true);
+				}
+			}
+		}
+
+		groupsEnabled[groupId]++;
+	}
+
+	public void DisableButtonGroup(int groupId)
+	{
+		groupsEnabled[groupId]--;
+
+		if (groupsEnabled[groupId] == 0)
+		{
+			foreach (ButtonDoorItem door in buttonDoors)
+			{
+				if (door.group == groupId)
+				{
+					door.SetDoorOpened(false);
+				}
+			}
+		}
+	}
+
+	public void PlayerOnEnd(int playerId, bool onEnd)
+	{
+		switch(playerId)
+		{
+			case 0:
+				p1OnEnd = onEnd;
+				break;
+			case 1:
+				p2OnEnd = onEnd;
+				break;
+			default:
+				break;
+		}
 	}
 }

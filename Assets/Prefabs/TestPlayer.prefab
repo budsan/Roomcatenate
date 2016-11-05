@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   id: 0
+  renderer: {fileID: 23000013043497910}
   hamster: {fileID: 4000014182279168}
   HamAnim: {fileID: 95000010166767004}
   modelAnim: {fileID: 4000014182279168}
