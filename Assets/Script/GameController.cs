@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
 	private SwitchButton _switchButton = null;
 	private Text _timeText;
 
+	private int _levelLoaded = -1;
+
 	void Start ()
 	{
 		if (mainCanvas == null)
@@ -32,12 +34,8 @@ public class GameController : MonoBehaviour
 
 		_finish = Instantiate(FinishWindowPrefab).GetComponent<FinishWindowController>();
 		_finish.transform.SetParent(mainCanvas.transform, false);
+		_finish.controller = this;
 		_finish.Hide = true;
-
-		_levelController = Instantiate(LevelControllerPrefab).GetComponent<LevelController>();
-		_levelController.transform.SetParent(transform, false);
-		_levelController.LoadPlayerInfo();
-		_levelController.SetCamera(Camera);
 
 		_switchButton = Instantiate(SwitchButtonPrefab).GetComponent<SwitchButton>();
 		_switchButton.transform.SetParent(mainCanvas.transform, false);
@@ -47,6 +45,16 @@ public class GameController : MonoBehaviour
 		_timeText.transform.SetParent(mainCanvas.transform, false);
 		_timeText.gameObject.SetActive(false);
 
+		MainMenu();
+	}
+
+	public void CreateLevelController()
+	{
+		_levelController = Instantiate(LevelControllerPrefab).GetComponent<LevelController>();
+		_levelController.transform.SetParent(transform, false);
+		_levelController.LoadPlayerInfo();
+		_levelController.SetCamera(Camera);
+
 		_advertising.ShowLevels(this, _levelController.Levels, _levelController.infoPlayer);
 		DpadController.Instance.gameObject.SetActive(false);
 	}
@@ -54,10 +62,19 @@ public class GameController : MonoBehaviour
 	public void LoadLevel(int levelId)
 	{
 		_levelController.LoadLevel(levelId);
+		_levelLoaded = levelId;
 		_advertising.Hide = true;
 		DpadController.Instance.gameObject.SetActive(true);
 		_switchButton.gameObject.SetActive(true);
 		_timeText.gameObject.SetActive(true);
+	}
+
+	public void MainMenu()
+	{
+		_advertising.Hide = false;
+		_finish.Hide = true;
+
+		CreateLevelController();
 	}
 
 	void Update ()
@@ -69,7 +86,17 @@ public class GameController : MonoBehaviour
 
 			if (_levelController.IsLevelCompleted)
 			{
+				_levelController.infoPlayer[_levelLoaded].clear = true;
+				_levelController.SavePlayerInfo();
 
+				Destroy(_levelController.gameObject);
+				_levelController = null;
+
+				DpadController.Instance.gameObject.SetActive(false);
+				_switchButton.gameObject.SetActive(false);
+				_timeText.gameObject.SetActive(false);
+
+				_finish.Hide = false;
 			}
 		}
 	}

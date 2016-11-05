@@ -6,10 +6,14 @@ public class FinishWindowController : MonoBehaviour
 {
 	public bool Hide = false;
 
-	public Text parTime;
-	public Text yourTime;
-	public Text parMovements;
-	public Text yourMovements;
+	public Text TargetLabel;
+	public Text TargetValue;
+	public Text YourTargetLabel;
+	public Text YourValue;
+	public Button MainMenuButton;
+
+	[HideInInspector]
+	public GameController controller;
 
 	private RectTransform _rect;
 	private RectTransform Rect
@@ -30,6 +34,13 @@ public class FinishWindowController : MonoBehaviour
 		Vector2 pivot = Rect.pivot;
 		pivot.x = 2.0f;
 		Rect.pivot = pivot;
+
+		MainMenuButton.onClick.AddListener(OnMainMenuClicked);
+	}
+
+	void OnMainMenuClicked()
+	{
+		controller.MainMenu();
 	}
 	
 	void Update ()
