@@ -1,10 +1,41 @@
 ﻿using System;
 using UnityEngine;
 
+public class LevelInfo
+{
+	public float parTime;
+	public int parCrosses;
+	public string[] level;
+
+	public LevelInfo(float _parTime, int _parCrosses, string[] _level)
+	{
+		parTime = _parTime;
+		parCrosses = _parCrosses;
+		level = _level;
+	}
+}
+
+[Serializable]
+public class LevelInfoPlayer
+{
+	public bool clear = false;
+	public float time;
+	public int crosses;
+}
+
+struct LevelPosition
+{
+	int roomId;
+	Vector2 position;
+}
+
 public class LevelController : MonoBehaviour
 {
+
 	public GameObject RoomPrefab;
 	public GameObject PlayerPrefab;
+
+	//------------------------------------------------//
 
 	const string level0_room0= @"
 W W W W W W W W W W W W W W W W W W W 
@@ -27,14 +58,60 @@ W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W
 W _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ W 
 W W W W W W W W W W W W W W W W W W W ";
 
-	private readonly string[] level0 = { level0_room0 };
+	private static readonly string[] level0_strs = { level0_room0 };
 
-	struct LevelPosition
+	public readonly LevelInfo[] Levels =
 	{
-		int roomId;
-		Vector2 position;
+		new LevelInfo(120, 8, level0_strs ),
+	};
+
+	public LevelInfoPlayer[] infoPlayer;
+
+	//------------------------------------------------//
+
+	public void LoadPlayerInfo()
+	{
+		infoPlayer = new LevelInfoPlayer[Levels.Length];
+		for (int i = 0; i < infoPlayer.Length; i++)
+		{
+			string key = "LevelInfo" + i;
+			if (PlayerPrefs.HasKey(key))
+			{
+				string json = PlayerPrefs.GetString(key);
+				infoPlayer[i] = JsonUtility.FromJson<LevelInfoPlayer>(json);
+			}
+			else
+			{
+				infoPlayer[i] = new LevelInfoPlayer();
+			}
+		}
 	}
 
+	public void SavePlayerInfo()
+	{
+		for (int i = 0; i < infoPlayer.Length; i++)
+		{
+			string key = "LevelInfo" + i;
+			if (infoPlayer[i].clear)
+			{
+				string json = JsonUtility.ToJson(infoPlayer[i]);
+				PlayerPrefs.SetString(key, json);
+			}
+			else
+			{
+				if (PlayerPrefs.HasKey(key))
+				{
+					PlayerPrefs.DeleteKey(key);
+				}
+			}
+		}
+
+		PlayerPrefs.Save();
+	}
+
+	//------------------------------------------------//
+
+	private LevelPosition playerRed;
 	private RoomController[] rooms = null;
 	void InstantiateLevel(string[] level)
 	{
@@ -59,18 +136,8 @@ W W W W W W W W W W W W W W W W W W W ";
 		}
 	}
 
-	void Start()
+	public void LoadLevel(int levelId)
 	{
-		LoadLevel(0);
-	}
-
-	void LoadLevel(int levelId)
-	{
-		switch(levelId)
-		{
-			case 0: // test
-				InstantiateLevel(level0);
-				break;
-		}
+		InstantiateLevel(Levels[levelId].level);
 	}
 }
